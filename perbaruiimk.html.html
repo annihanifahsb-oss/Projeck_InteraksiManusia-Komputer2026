@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JASTEF - Website Transaksi Digital</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            /* Latar Belakang Elegan & Profesional (Dark Theme) */
+            --bg-dark-main: #0b0f19; /* Midnight Blue Super Pekat */
+            --bg-dark-card: #161b26; /* Warna Card Elegan */
+            
+            /* Aksen Gradasi Energik */
+            --primary-gradient: linear-gradient(135deg, #7c3aed 0%, #ff007a 100%); /* Violet to Neon Pink */
+            --accent-cyan: #00f2fe;
+            --accent-orange: #ff5722;
+            
+            /* Warna Teks */
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body { 
+            background-color: var(--bg-dark-main);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-light);
+            min-height: 100vh;
+        }
+
+        /* Navbar Customization */
+        .navbar {
+            background: rgba(11, 15, 25, 0.85) !important;
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Desain Logo Visual JASTEF */
+        .logo-jast {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            text-decoration: none !important;
+        }
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 800;
+            box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+            position: relative;
+        }
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%; height: 100%;
+            background: inherit;
+            border-radius: inherit;
+            filter: blur(8px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+        .logo-text {
+            font-weight: 800; 
+            letter-spacing: 0.5px; 
+            background: linear-gradient(to right, #00f2fe, #ff007a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            margin-bottom: 0;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            color: var(--text-muted) !important;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-light) !important;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        /* Widget Saldo Elegan */
+        .navbar-brand-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .nav-wallet-widget {
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            border-radius: 30px;
+            padding: 2px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #00f2fe;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 2px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .nav-wallet-widget:hover {
+            background: rgba(0, 242, 254, 0.15);
+            transform: scale(1.02);
+        }
+
+        /* Tombol & Avatar Akun Login Navbar */
+        .nav-profile-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 16px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .nav-profile-btn:hover {
+            border-color: #ff007a;
+            background: rgba(255, 0, 122, 0.1);
+        }
+        .nav-avatar-img {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid #00f2fe;
+        }
+
+        /* Search Area Customization */
+        .search-container {
+            background: transparent;
+            padding: 30px 0;
+        }
+        .search-box {
+            border-radius: 50px !important;
+            padding-left: 25px;
+            background-color: var(--bg-dark-card) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+            color: var(--text-light) !important;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus {
+            border-color: #7c3aed;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.3);
+        }
+        .btn-search {
+            border-radius: 50px !important;
+            padding: 0 30px;
+            font-weight: 700;
+            background: var(--primary-gradient);
+            border: none;
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+            transition: all 0.3s ease;
+        }
+        .btn-search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 122, 0.5);
+        }
+
+        /* Hero / Promo Banner Customization */
+        .hero-banner { 
+            background: var(--primary-gradient); 
+            border-radius: 28px; 
+            box-shadow: 0 15px 35px rgba(255, 0, 122, 0.25);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            right: -10%;
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.3) 0%, rgba(255, 0, 122, 0) 100%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Service Cards Customization */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--text-light);
+            letter-spacing: 0.5px;
+            position: relative;
+            padding-left: 15px;
+        }
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 3px;
+            height: 20px;
+            width: 5px;
+            background: var(--accent-cyan);
+            border-radius: 3px;
+        }
+        
+        .hcall { 
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease, border-color 0.3s; 
+            border: 1px solid rgba(255, 255, 255, 0.05); 
+            background: var(--bg-dark-card); 
+            border-radius: 24px !important;
+        }
+        .hcall:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 30px rgba(0, 242, 254, 0.15) !important;
+            border-color: var(--accent-cyan);
+        }
+        .icon-box {
+            width: 65px;
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            margin: 0 auto 15px auto;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        
+        /* Warna Lembut & Menyala di Background Gelap */
+        .bg-glow-primary { background: rgba(124, 58, 237, 0.15); color: #a78bfa; }
+        .bg-glow-success { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+        .bg-glow-warning { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .bg-glow-info { background: rgba(6, 182, 212, 0.15); color: #22d3ee; }
+
+        /* News & Testi Section Customization */
+        .card-news {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        .card-testi {
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--bg-dark-card);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Modal Customization (Dark Style) */
+        .modal-content {
+            background-color: #111622 !important;
+            color: var(--text-light) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            border-radius: 24px !important;
+        }
+        .modal-header { border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important; }
+        .modal-footer { border-top: 1px solid rgba(255, 255, 255, 0.05) !important; }
+        .form-control, .form-select {
+            background-color: var(--bg-dark-main) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+            color: var(--text-light) !important;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #7c3aed !important;
+            box-shadow: 0 0 10px rgba(124, 58, 237, 0.2) !important;
+        }
+        .input-group-text {
+            background-color: rgba(255,255,255,0.05) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+            color: var(--text-muted) !important;
+        }
+        .btn-close { filter: invert(1); }
+        .bg-light { background-color: rgba(255,255,255,0.02) !important; }
+
+        /* Desain Grid Pilihan Diamond Game Card */
+        .game-item-card {
+            background: var(--bg-dark-main);
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .game-item-card:hover {
+            border-color: #ff007a;
+            box-shadow: 0 0 12px rgba(255, 0, 122, 0.2);
+            transform: translateY(-3px);
+        }
+        .game-item-card.selected {
+            border-color: #00f2fe;
+            background: rgba(0, 242, 254, 0.05);
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+        }
+        .game-item-card .dm-amount {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+        .game-item-card .dm-price {
+            font-size: 11px;
+            color: #00f2fe;
+            font-weight: 600;
+        }
+
+        /* Gaya Visual Halaman Kartu Profil */
+        .profile-modal-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #7c3aed;
+            box-shadow: 0 0 15px rgba(124, 58, 237, 0.4);
+        }
+        .profile-badge {
+            background: var(--primary-gradient);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .profile-info-table th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 13px;
+            padding: 8px 0;
+            width: 35%;
+        }
+        .profile-info-table td {
+            color: var(--text-light);
+            font-weight: 600;
+            font-size: 13.5px;
+            padding: 8px 0;
+        }
+
+        /* Receipt Style */
+        .struk-bukti { 
+            background: #ffffff; 
+            color: #000000;
+            border: 2px dashed #7c3aed; 
+            border-radius: 12px; 
+            font-family: 'Courier New', Courier, monospace; 
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top py-2">
+        <div class="container">
+            <div class="navbar-brand-wrapper">
+                <a class="logo-jast mb-6" href="#">
+                    <div class="logo-icon d-flex align-items-center">J</div>
+                </a>
+                <div class="nav-wallet-widget" id="areaWalletNavbar" data-bs-toggle="modal" data-bs-target="#modalIsiSaldoJastef" style="display: none;">
+                    <i class="bi bi-wallet2"></i> Saldo: <span id="txtSaldoUtamaDashboard">Rp 75.000</span>
+                </div>
+            </div>
+            
+            <div class="d-flex align-items-center gap-3 ms-auto order-lg-last" id="authButtonContainer">
+                </div>
+
+            <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-2 ps-lg-3">
+                    <li class="nav-item"><a class="nav-link active px-3 text-uppercase" href="#">Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 text-uppercase" href="#" data-bs-toggle="modal" data-bs-target="#modalTestimoni">Testimoni</a></li>
+                    <li class="nav-item"><a class="nav-link px-3 text-uppercase" href="#" data-bs-toggle="modal" data-bs-target="#modalPusatBantuan">FAQ / Bantuan</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="search-container text-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control search-box py-3 shadow-sm" placeholder="Cari: 'pulsa', 'bank', atau 'wallet'..." id="inputCari">
+                        <button class="btn btn-primary btn-search px-4" type="button" onclick="cariLayanan()">
+                            <i class="bi bi-search me-2"></i> Cari
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-3">
+        <div class="hero-banner p-4 p-md-5 text-white position-relative">
+            <div class="row align-items-center position-relative" style="z-index: 2;">
+                <div class="col-md-8 text-center text-md-start">
+                    <span class="badge bg-dark text-warning mb-3 px-3 py-2 text-uppercase fw-bold shadow-sm" style="font-size: 0.8rem; border-radius: 30px;">🔥 MEGA PROMO MINGGU INI</span>
+                    <h1 class="display-5 mb-2" style="font-weight: 800; letter-spacing: -1px;">Diskon Biaya Admin 50%!</h1>
+                    <p class="lead mb-4" style="font-size: 1.05rem; opacity: 0.9;">Gak pake mahal! Kirim uang, top-up e-wallet, and bayar semua tagihan kosan jadi super hemat cuma di JASTEF.</p>
+                    <button class="btn btn-light btn-lg fw-bold px-5 py-3 text-danger shadow-lg" data-bs-toggle="modal" data-bs-target="#modalDetailPromo" style="border-radius: 50px; font-size: 1rem; border: none;">Ambil Voucher Promo</button>
+                </div>
+                <div class="col-md-4 text-center d-none d-md-block">
+                    <i class="bi bi-lightning-charge-fill text-warning" style="font-size: 9rem; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.2));"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5">
+        <h5 class="section-title text-uppercase mb-4">Layanan Utama Jastef</h5>
+        <div class="row g-4">
+            <div class="col-6 col-md-3">
+                <div class="card h-100 text-center p-3 hcall" data-bs-toggle="modal" data-bs-target="#modalTransferBank">
+                    <div class="card-body d-flex flex-column justify-content-center py-4">
+                        <div class="icon-box bg-glow-primary"><i class="bi bi-bank"></i></div>
+                        <h6 class="fw-bold mb-1 text-white" style="font-size: 1.05rem;">Transfer Bank</h6>
+                        <small class="text-muted" style="font-size: 11px;">Kirim uang aman & kilat</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card h-100 text-center p-3 hcall" data-bs-toggle="modal" data-bs-target="#modalEWallet">
+                    <div class="card-body d-flex flex-column justify-content-center py-4">
+                        <div class="icon-box bg-glow-success"><i class="bi bi-wallet2"></i></div>
+                        <h6 class="fw-bold mb-1 text-white" style="font-size: 1.05rem;">Top-Up E-Wallet</h6>
+                        <small class="text-muted" style="font-size: 11px;">Dana, Ovo, Gopay, Shopee</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card h-100 text-center p-3 hcall" data-bs-toggle="modal" data-bs-target="#modalPulsaData">
+                    <div class="card-body d-flex flex-column justify-content-center py-4">
+                        <div class="icon-box bg-glow-warning"><i class="bi bi-phone-vibrate"></i></div>
+                        <h6 class="fw-bold mb-1 text-white" style="font-size: 1.05rem;">Pulsa & Paket Data</h6>
+                        <small class="text-muted" style="font-size: 11px;">Kuota internet termurah</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="card h-100 text-center p-3 hcall" data-bs-toggle="modal" data-bs-target="#modalPembayaranTagihan">
+                    <div class="card-body d-flex flex-column justify-content-center py-4">
+                        <div class="icon-box bg-glow-info"><i class="bi bi-receipt"></i></div>
+                        <h6 class="fw-bold mb-1 text-white" style="font-size: 1.05rem;">Bayar Tagihan</h6>
+                        <small class="text-muted" style="font-size: 11px;">Listrik, PDAM, BPJS, Wifi</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5 pb-5">
+        <div class="row g-4">
+            <div class="col-md-7">
+                <div class="p-4 p-md-5 text-white h-100 d-flex flex-column justify-content-center card-news">
+                    <span class="badge bg-danger text-white mb-3 align-self-start fw-bold px-3 py-1" style="border-radius: 20px; font-size: 0.75rem; background: linear-gradient(135deg, #ff4500, #ff8c00) !important;">⚡ SANGAT CEPAT</span>
+                    <h4 class="fw-bold mb-2 fs-3">TOP-UP Game Otomatis 24 Jam!</h4>
+                    <p class="small text-white-50 mb-4 lh-base" style="font-size: 0.95rem; opacity: 0.8;">Voucher game otomatis aktif 24 jam. Diamond Mobile Legends & Free Fire langsung masuk ke ID game Anda dalam hitungan detik setelah transaksi sukses!</p>
+                    <button class="btn btn-warning btn-sm align-self-start px-4 py-2.5 fw-bold" data-bs-toggle="modal" data-bs-target="#modalTopUpGame" style="border-radius: 30px; color: #111622; background: #fff; border:none;">Beli Voucher Game</button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card card-testi p-4 h-100 d-flex flex-column justify-content-center">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="text-white d-flex align-items-center justify-content-center rounded-circle me-3 shadow-sm" style="width: 45px; height: 45px; background: var(--primary-gradient);">
+                                <i class="bi bi-person-fill fs-5"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold mb-0 text-white">Pelanggan Setia</h6>
+                                <div class="text-warning" style="font-size: 0.8rem;">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="fst-italic text-muted lh-base" style="font-size: 0.95rem;">"Gak nyangka top up saldo dan bayar kebutuhan bulanan di sini beneran instan. Pelayanan JASTEF mantap, ramah, dan amanah banget!"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="border-top pt-5" style="background: #070a12; color: #64748b; border-color: rgba(255,255,255,0.05) !important;">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h6 class="fw-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;">Alamat Offline Store Jaster</h6>
+                    <p class="small lh-base">Kisaran, Asahan, Sumatera Utara.<br><span class="text-warning fw-semibold">(Dekat area lingkungan Kompleks Kampus & Kos mahasiswa)</span>.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h6 class="fw-bold text-uppercase text-white mb-3" style="letter-spacing: 1px;">Bantuan Cepat</h6>
+                    <p class="small mb-0">Tim admin JASTEF siap melayani rekonsiliasi mutasi atau cetak struk kasir.</p>
+                </div>
+            </div>
+            <div class="py-4 border-top text-center" style="border-color: rgba(255,255,255,0.05) !important;">
+                <p class="small mb-0">Copyright © 2026 - <strong class="text-white">JASTEF</strong> | ANNIHANIFAHASIBUAN_24220175 </p>
+            </div>
+        </div>
+    </footer>
+
+    <div style="position: fixed; bottom: 25px; right: 25px; z-index: 999;">
+        <button class="btn btn-primary rounded-pill shadow-lg px-4 py-2.5 fw-bold" data-bs-toggle="modal" data-bs-target="#modalChatbot" style="background: var(--primary-gradient); border: none; box-shadow: 0 10px 25px rgba(255, 0, 122, 0.4) !important;">
+            <i class="bi bi-chat-dots-fill me-2"></i>Chat Asisten
+        </button>
+    </div>
+
+    <div class="modal fade" id="modalLoginJastef" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header text-white" style="background: var(--primary-gradient); border: none;">
+                    <h6 class="modal-title fw-bold"><i class="bi bi-box-arrow-in-right me-2"></i>Masuk ke JASTEF</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Username / NIM</label>
+                        <input type="text" id="loginUsername" class="form-control" placeholder="Ketik 'hani' atau '24220175'" style="border-radius: 10px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Password</label>
+                        <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan Password(19062006)" style="border-radius: 10px;">
+                    </div>
+                    <button class="btn btn-primary w-100 fw-bold mt-3 py-2" onclick="aksiLoginSimulasi()" style="background: var(--primary-gradient); border: none; border-radius: 12px;">Masuk Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalProfilUser" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-person-badge me-2 text-primary"></i>Profil Pengguna</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 pt-2">
+                    <div class="text-center mb-4">
+                        <img src="hani.jpg.jpeg" alt="Foto Anni Hanifa Hasibuan" class="img-fluid profile-modal-avatar mb-3">
+                        <h5 class="fw-bold text-white mb-1">Anni Hanifa Hasibuan</h5>
+                        <span class="profile-badge text-white">SI-4H — UNIVERSITAS ROYAL</span>
+                    </div>
+
+                    <div class="p-3 rounded-4 border mb-4" style="background: var(--bg-dark-main); border-color: rgba(255,255,255,0.05) !important;">
+                        <table class="table table-sm table-borderless profile-info-table mb-0">
+                            <tr>
+                                <th>NIM Mahasiswa</th>
+                                <td>: 24220175</td>
+                            </tr>
+                            <tr>
+                                <th>Kampus Utama</th>
+                                <td>: Universitas Royal</td>
+                            </tr>
+                            <tr>
+                                <th>Dosen Pengampu</th>
+                                <td>: Dewi Maharani S.Kom.,M.Kom</td>
+                            </tr>
+                            <tr>
+                                <th>Mata Kuliah</th>
+                                <td>: Interaksi Manusia & Komputer</td>
+                            </tr>
+                            <tr>
+                                <th>Alamat Kos</th>
+                                <td>: JASTEF Store, Kisaran, Asahan</td>
+                            </tr>
+                            <tr>
+                                <th>Email Pendidikan</th>
+                                <td>: hanifa.hasibuan@mahasiswa.id</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <button class="btn btn-outline-danger w-100 fw-bold py-2" onclick="aksiLogoutSimulasi()" style="border-radius: 12px;"><i class="bi bi-box-arrow-left me-1"></i> Keluar / Logout Akun</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalSuksesPromo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content text-center p-4 border-0">
+                <div class="text-success mb-2"><i class="bi bi-check-circle-fill" style="font-size: 3.5rem;"></i></div>
+                <h4 class="fw-bold text-success mb-3">TRANSAKSI BERHASIL!</h4>
+                <div class="struk-bukti p-3 text-start mb-3 small" id="tampilanStruk"></div>
+                <button class="btn btn-success btn-sm w-100 fw-bold py-2" data-bs-dismiss="modal" style="border-radius: 12px;">Selesai & Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalIsiSaldoJastef" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header" style="background: rgba(255,255,255,0.02);">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-plus-circle me-2 text-info"></i>Pengisian Saldo JASTEF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Pilih Metode Deposit</label>
+                        <select id="inputMetodeIsiSaldo" class="form-select" style="border-radius: 10px; padding: 10px;">
+                            <option value="QRIS Instan">QRIS All Payment (Otomatis)</option>
+                            <option value="Transfer BRI">Bank BRI - Mandiri Virtual Account</option>
+                            <option value="Tunai Kasir">Bayar Tunai di Kos Mini_House</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Masukkan Nominal Top-Up (Min Rp 10.000)</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Rp</span>
+                            <input type="number" id="inputNominalIsiSaldo" class="form-control" min="10000" max="2000000" placeholder="Contoh: 50000" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;">
+                        </div>
+                        <div class="form-text text-muted" style="font-size: 11px;">*Maksimal pengisian saldo lewat sistem demo adalah Rp 2.000.000</div>
+                    </div>
+                    <button class="btn btn-info text-white w-100 fw-bold mt-4 py-2.5" onclick="prosesTopUpSaldoJastef()" style="border-radius: 12px; font-weight:700;">Konfirmasi Isi Saldo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalDetailPromo" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header text-white py-3" style="background: var(--primary-gradient); border: none;">
+                    <h5 class="modal-title fw-bold"><i class="bi bi-ticket-perforated me-2"></i>Klaim Voucher Diskon JASTEF</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4 bg-light">
+                    <div class="d-flex flex-column gap-3 mb-3">
+                        <div class="p-3 border rounded-4 shadow-sm hcall text-start" onclick="prosesTransaksiBerhasil('Klaim Promo', 'Potongan Admin 50%', 'Voucher Mingguan')">
+                            <span class="badge bg-danger mb-2 px-2 py-1" style="border-radius: 10px;">PROMO MINGGU INI</span>
+                            <h6 class="fw-bold text-white mb-0">Potongan Biaya Admin 50%</h6>
+                        </div>
+                        <div class="p-3 border rounded-4 shadow-sm hcall text-start" onclick="prosesTransaksiBerhasil('Klaim Promo', 'Gratis Admin 100%', 'Voucher Mahasiswa')">
+                            <span class="badge bg-success mb-2 px-2 py-1" style="border-radius: 10px;">KHUSUS KOS & KAMPUS</span>
+                            <h6 class="fw-bold text-white mb-0">Gratis Biaya Admin 100%</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTransferBank" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header" style="background: rgba(255,255,255,0.02);">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-bank me-2 text-primary"></i>Kirim Transfer Bank</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Pilih Bank Tujuan</label>
+                        <select id="inputNamaBank" class="form-select" style="border-radius: 10px; padding: 10px;">
+                            <option value="BRI">BRI (Bank Rakyat Indonesia)</option>
+                            <option value="BCA">BCA (Bank Central Asia)</option>
+                            <option value="MANDIRI">Bank Mandiri</option>
+                            <option value="BNI">BNI (Bank Negara Indonesia)</option>
+                            <option value="SUMUT">Bank Sumut</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Nomor Rekening Tujuan</label>
+                        <input type="number" id="inputRekBank" class="form-control" placeholder="Contoh: 123456789" style="border-radius: 10px; padding: 10px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Masukkan Nominal Transfer (Minimal Rp 20.000)</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Rp</span>
+                            <input type="number" id="inputNominalBank" class="form-control" min="20000" max="10000000" placeholder="Contoh: 150000" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;">
+                        </div>
+                        <div class="form-text text-muted" style="font-size: 11px;">*Minimal transfer Rp 20.000</div>
+                    </div>
+                    <button class="btn btn-primary w-100 fw-bold mt-4 py-2.5" onclick="validasidanKirim('Bank', 'inputRekBank', 'inputNominalBank')" style="border-radius: 12px; background: var(--primary-gradient); border:none;">Konfirmasi Transaksi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEWallet" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header" style="background: rgba(255,255,255,0.02);">
+                    <h5 class="modal-title fw-bold text-white mb-0"><i class="bi bi-wallet2 me-2 text-success"></i>Top-Up E-Wallet JASTEF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Nomor HP Akun E-Wallet</label>
+                        <input type="number" id="inputHpWallet" class="form-control" placeholder="Contoh: 0812xxxxxxxx" style="border-radius: 10px; padding: 10px;">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Pilih Layanan E-Wallet</label>
+                        <select id="inputJenisWallet" class="form-select" style="border-radius: 10px; padding: 10px;">
+                            <option value="DANA">DANA</option>
+                            <option value="OVO">OVO</option>
+                            <option value="GOPAY">GOPAY</option>
+                            <option value="SHOPEEPAY">SHOPEEPAY</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Masukkan Nominal Saldo (Rp 10.000 - Rp 10.000.000)</label>
+                        <div class="input-group">
+                            <span class="input-group-text" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;">Rp</span>
+                            <input type="number" id="inputNominalWallet" class="form-control" min="10000" max="10000000" placeholder="Contoh: 50000" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px; padding: 10px;">
+                        </div>
+                        <div class="form-text text-muted" style="font-size: 11px;">*Minimal Rp 10.000 dan Maksimal Rp 10.000.000</div>
+                    </div>
+                    <button class="btn btn-success w-100 fw-bold py-2.5 mt-3" onclick="validasidanKirim('E-Wallet', 'inputHpWallet', 'inputNominalWallet')" style="border-radius: 12px; background: linear-gradient(135deg, #10b981, #059669); border: none;">Konfirmasi Top-Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPulsaData" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0">
+                <div class="modal-header text-dark py-3" style="background: rgba(255,255,255,0.02); border: none;">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-phone-vibrate me-2 text-warning"></i>Isi Pulsa & Paket Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Nomor Handphone</label>
+                        <input type="number" class="form-control" id="inputHpPulsa" placeholder="Contoh: 0812xxxxxxxx" style="border-radius: 10px; padding: 10px;">
+                    </div>
+
+                    <ul class="nav nav-pills nav-justified mb-3" id="pulsaTab" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active fw-bold small py-2" id="tab-pulsa-link" data-bs-toggle="tab" data-bs-target="#panel-pulsa" type="button" role="tab" onclick="setJenisLayanan('Pulsa Regular')" style="border-radius: 10px;">ISI PULSA</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link fw-bold small py-2" id="tab-data-link" data-bs-toggle="tab" data-bs-target="#panel-data" type="button" role="tab" onclick="setJenisLayanan('Paket Data')" style="border-radius: 10px;">PAKET DATA</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content p-3 border rounded-4 shadow-sm mb-3" style="background-color: var(--bg-dark-main); border-color: rgba(255,255,255,0.05) !important;">
+                        <div class="tab-pane fade show active" id="panel-pulsa" role="tabpanel">
+                            <label class="form-label small fw-bold text-muted">Pilih Nominal Pulsa</label>
+                            <select id="inputNominalPulsaReguler" class="form-select" style="border-radius: 10px; padding: 10px;">
+                                <option value="11500">Rp 10.000 - (Harga Rp 11.500)</option>
+                                <option value="21500">Rp 20.000 - (Harga Rp 21.500)</option>
+                                <option value="51500">Rp 50.000 - (Harga Rp 51.500)</option>
+                                <option value="101500">Rp 100.000 - (Harga Rp 101.500)</option>
+                            </select>
+                        </div>
+
+                        <div class="tab-pane fade" id="panel-data" role="tabpanel">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Pilih Operator Kartu</label>
+                                <select id="inputOperatorData" class="form-select" onchange="updatePilihanPaketData()" style="border-radius: 10px; padding: 10px;">
+                                    <option value="Telkomsel">Telkomsel</option>
+                                    <option value="AXIS">AXIS</option>
+                                    <option value="XL Axiata">XL Axiata</option>
+                                    <option value="Indosat Ooredoo">Indosat Ooredoo</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label small fw-bold text-muted">Pilih Paket Data</label>
+                                <select id="inputPaketDataLengkap" class="form-select" style="border-radius: 10px; padding: 10px;">
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="statusJenisLayanan" value="Pulsa Regular">
+                    <button class="btn btn-warning w-100 fw-bold text-dark mt-4 py-2.5" onclick="validasidanKirim('Pulsa/Data', 'inputHpPulsa', 'statusJenisLayanan')" style="border-radius: 12px; font-weight:700;">Konfirmasi & Beli Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPembayaranTagihan" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header py-3" style="background: rgba(255,255,255,0.02);">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-receipt me-2 text-info"></i>Pembayaran Tagihan JASTEF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">Pilih Jenis Tagihan</label>
+                        <select id="inputJenisTagihan" class="form-select" onchange="resetCekTagihan()" style="border-radius: 10px; padding: 10px;">
+                            <option value="Listrik PLN">PLN / Listrik Postpaid</option>
+                            <option value="BPJS Kesehatan">BPJS Kesehatan</option>
+                            <option value="PDAM / Air">PDAM / Air Bersih</option>
+                            <option value="Telkom IndiHome">Telkom / IndiHome / Wifi</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">ID / Nomor Pelanggan</label>
+                        <div class="input-group">
+                            <input type="number" id="inputIDTagihan" class="form-control" placeholder="Masukkan ID Pelanggan" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px; padding: 10px;">
+                            <button class="btn btn-info fw-bold btn-sm px-4 text-white" type="button" onclick="cekTagihanPelanggan()" style="border-top-right-radius: 10px; border-bottom-right-radius: 10px;">
+                                <i class="bi bi-search me-1"></i> Cek Tagihan
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="boxDetailTagihan" class="p-3 rounded-4 border mb-3 d-none shadow-sm" style="background: var(--bg-dark-main); border-color: rgba(255,255,255,0.05) !important;">
+                        <h6 class="fw-bold small text-info mb-2 border-bottom pb-1" style="border-color: rgba(255,255,255,0.05) !important;"><i class="bi bi-file-earmark-text me-1"></i> DETAIL TAGIHAN</h6>
+                        <table class="table table-sm table-borderless mb-0 text-white" style="font-size: 12px;">
+                            <tr>
+                                <td class="text-muted" style="width: 40%;">Nama Pelanggan</td>
+                                <td>: <span id="txtNamaPelanggan" class="fw-bold text-white">-</span></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Jumlah Tagihan</td>
+                                <td>: <span id="txtJumlahTagihan" class="fw-bold text-danger">-</span></td>
+                            </tr>
+                            <tr>
+                                <td class="text-muted">Biaya Admin Jastef</td>
+                                <td>: <span class="fw-bold text-success">Rp 2.500</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <input type="hidden" id="tagihanNominalHidden" value="">
+                    <input type="hidden" id="tagihanHargaMurniHidden" value="">
+                    <input type="hidden" id="tagihanNamaHidden" value="">
+
+                    <button class="btn btn-info w-100 fw-bold text-white mt-4 py-2.5" onclick="validasidanKirim('Tagihan', 'inputIDTagihan', 'inputJenisTagihan')" style="border-radius: 12px; font-weight:700;">Konfirmasi Pembayaran</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTopUpGame" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow">
+                <div class="modal-header" style="background: rgba(255,255,255,0.02);">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-controller me-2 text-warning"></i>Top-Up Game Instan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">1. Masukkan ID Akun Game</label>
+                        <input type="number" id="inputIDGame" class="form-control" placeholder="Contoh: 12345678 (9901)" style="border-radius: 10px; padding: 12px;">
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label small fw-bold text-muted">2. Pilih Jenis Game</label>
+                        <select id="selectJenisGamePlatform" class="form-select" onchange="renderGridDiamondGame()" style="border-radius: 10px; padding: 10px;">
+                            <option value="Mobile Legends">Mobile Legends (MLBB)</option>
+                            <option value="Free Fire">Free Fire (FF)</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label small fw-bold text-muted">3. Pilih Nominal Diamond Voucher</label>
+                        <div class="row g-3" id="containerGridDiamondVoucher">
+                            </div>
+                    </div>
+
+                    <input type="hidden" id="hiddenProdukGameTerpilih" value="">
+                    <input type="hidden" id="hiddenHargaGameMurni" value="">
+
+                    <button class="btn btn-warning w-100 fw-bold mt-4 py-2.5 text-dark" onclick="validasirimGame()" style="border-radius: 12px; font-weight:700;">Beli Voucher Game Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalTestimoni" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header py-3" style="background: rgba(255,255,255,0.02);">
+                    <h5 class="modal-title fw-bold text-white"><i class="bi bi-chat-heart-fill text-danger me-2"></i>Testimoni Pelanggan JASTEF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body modal-split p-4">
+                    <div class="modal-form-area" style="max-height: 350px; overflow-y: auto;">
+                        <h6 class="fw-bold mb-3 text-secondary"><i class="bi bi-stars text-warning me-1"></i> Ulasan Pengguna</h6>
+                        <div class="p-3 rounded-4 mb-3 shadow-sm" style="background: var(--bg-dark-main); border: 1px solid rgba(255,255,255,0.05);">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <span class="fw-bold small text-primary">@Andi_Kisaran</span>
+                                <span class="text-warning small"><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i></span>
+                            </div>
+                            <p class="small mb-0 text-muted fst-italic">"Gak nyangka top-up e-wallet di sini beneran sedetik langsung masuk. Admin Hani ramah banget!"</p>
+                        </div>
+                    </div>
+                    <div class="modal-support-area p-3 rounded-4" style="background: var(--bg-dark-main); border: 1px solid rgba(255,255,255,0.05);">
+                        <h6 class="fw-bold text-white text-uppercase mb-3" style="font-size: 0.85rem;"><i class="bi bi-pencil-square me-1 text-info"></i> Tulis Ulasan Kamu</h6>
+                        <div class="mb-2">
+                            <label class="form-label small fw-bold text-muted mb-1">Nama / Username</label>
+                            <input type="text" id="inputNamaTesti" class="form-control form-control-sm" placeholder="Contoh: @Hanifa_mahasiswa" style="border-radius: 8px;">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold text-muted mb-1">Isi Ulasan Kamu</label>
+                            <textarea id="inputPesanTesti" class="form-control form-control-sm" rows="3" placeholder="Ketik ulasan transaksi disini..."></textarea>
+                        </div>
+                        <button class="btn btn-dark btn-sm w-100 fw-bold py-2 shadow-sm text-white" onclick="kirimTestimoniBaru()" style="border-radius: 10px; background: var(--primary-gradient); border:none;">
+                            <i class="bi bi-send-fill me-1"></i> Kirim Testimoni
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalPusatBantuan" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered">
+            <div class="modal-content" style="border-radius: 20px;">
+                <div class="modal-body p-4 text-center">
+                    <i class="bi bi-question-circle text-info mb-3" style="font-size: 2.5rem;"></i>
+                    <h5 class="fw-bold text-white">Pusat Bantuan JASTEF</h5>
+                    <p class="small text-muted mb-4">Butuh bantuan cepat atau konfirmasi struk kasir secara manual? Hubungi tim whatsapp cs kami.</p>
+                    <a href="#" class="btn btn-success fw-bold w-100 py-2.5 shadow-sm" style="border-radius: 10px; background: linear-gradient(135deg, #10b981, #059669); border:none;"><i class="bi bi-whatsapp me-2"></i>Hubungi WA Admin</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalChatbot" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-white" style="border-radius: 20px;">
+                <div class="modal-header py-3" style="border-top-left-radius: 20px; border-top-right-radius: 20px; background: var(--primary-gradient) !important; border:none;">
+                    <h6 class="modal-title fw-bold">JASTEF Chat Asisten</h6>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body bg-light" id="chatContainer" style="height: 250px; overflow-y: auto; font-size: 13px; background-color: var(--bg-dark-main) !important;">
+                    <span class="small border d-inline-block p-2 rounded-3 shadow-sm text-light" style="background-color: var(--bg-dark-card); border-color: rgba(255,255,255,0.05) !important;">Halo Hani! Ada yang bisa kami bantu?</span>
+                </div>
+                <div class="modal-footer p-2" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; background-color: var(--bg-dark-card) !important; border-color: rgba(255,255,255,0.05) !important;">
+                    <div class="input-group">
+                        <input type="text" id="inputPesanChat" class="form-control shadow-none border-0 px-2" placeholder="Ketik pesan..." style="font-size: 13px;">
+                        <button class="btn btn-primary px-3" onclick="kirimPesan()"><i class="bi bi-send"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let saldoDompetUtama = 75000;
+        let statusUserSudahLogin = false;
+
+        const katalogKoleksiGame = {
+            'Mobile Legends': [
+                { diamond: '11 Diamonds + 1 Bonus', harga: 'Rp 3.500', angkaMurni: 3500 },
+                { diamond: '50 Diamonds', harga: 'Rp 14.000', angkaMurni: 14000 },
+                { diamond: '86 Diamonds', harga: 'Rp 22.000', angkaMurni: 22000 },
+                { diamond: '172 Diamonds', harga: 'Rp 43.500', angkaMurni: 43500 },
+                { diamond: '257 Diamonds', harga: 'Rp 65.000', angkaMurni: 65000 },
+                { diamond: '706 Diamonds', harga: 'Rp 174.000', angkaMurni: 174000 }
+            ],
+            'Free Fire': [
+                { diamond: '5 Diamonds', harga: 'Rp 1.000', angkaMurni: 1000 },
+                { diamond: '50 Diamonds', harga: 'Rp 8.000', angkaMurni: 8000 },
+                { diamond: '70 Diamonds', harga: 'Rp 10.000', angkaMurni: 10000 },
+                { diamond: '140 Diamonds', harga: 'Rp 20.000', angkaMurni: 20000 },
+                { diamond: '355 Diamonds', harga: 'Rp 49.000', angkaMurni: 49000 },
+                { diamond: '720 Diamonds', harga: 'Rp 97.500', angkaMurni: 97500 }
+            ]
+        };
+
+        const daftarPaketData = {
+            'Telkomsel': [
+                { teks: 'Internet OMG! 4GB - Rp 34.000', value: 'Tsel OMG! 4GB', harga: 34000 },
+                { teks: 'Internet OMG! 10GB - Rp 67.000', value: 'Tsel OMG! 10GB', harga: 67000 },
+                { teks: 'Combo Sakti 25GB - Rp 105.000', value: 'Tsel Combo Sakti 25GB', harga: 105000 }
+            ],
+            'AXIS': [
+                { teks: 'AXIS Bronet 2GB - Rp 25.000', value: 'AXIS Bronet 2GB', harga: 25000 },
+                { teks: 'AXIS Bronet 5GB - Rp 45.000', value: 'AXIS Bronet 5GB', harga: 45000 },
+                { teks: 'AXIS Warnet Unlimited - Rp 6.000', value: 'AXIS Warnet Unlimited', harga: 6000 }
+            ],
+            'XL Axiata': [
+                { teks: 'Xtra Combo Mini 2.5GB - Rp 18.000', value: 'XL Xtra Combo 2.5GB', harga: 18000 },
+                { teks: 'Xtra HotRod 10GB - Rp 55.000', value: 'XL HotRod 10GB', harga: 55000 }
+            ],
+            'Indosat Ooredoo': [
+                { teks: 'Freedom Internet 3GB - Rp 22.000', value: 'Indosat Freedom 3GB', harga: 22000 },
+                { teks: 'Freedom Internet 12GB - Rp 52.000', value: 'Indosat Freedom 12GB', harga: 52000 }
+            ]
+        };
+
+        const simulasiNamaTagihan = ["Ahmad Fauzi", "Rini Lestari", "Budi Darmawan", "Siti Aminah", "Dewi Sartika"];
+        const simulasiHargaTagihan = {
+            "Listrik PLN": 145000,
+            "BPJS Kesehatan": 70000,
+            "PDAM / Air": 42000,
+            "Telkom IndiHome": 375000
+        };
+
+        window.addEventListener('DOMContentLoaded', () => {
+            updatePilihanPaketData();
+            renderGridDiamondGame();
+            cekStatusLoginUserRenderNavbar();
+        });
+
+        function cekStatusLoginUserRenderNavbar() {
+            let container = document.getElementById('authButtonContainer');
+            let walletWidget = document.getElementById('areaWalletNavbar');
+
+            if (statusUserSudahLogin) {
+                walletWidget.style.display = "flex";
+                updateTampilanSaldoWidget();
+                container.innerHTML = `
+                    <button class="btn nav-profile-btn" data-bs-toggle="modal" data-bs-target="#modalProfilUser">
+                        <img src="hani.jpg.jpeg" class="nav-avatar-img" alt="Avatar">
+                        <span class="d-none d-sm-inline">Hanifa Hasibuan</span>
+                    </button>
+                `;
+            } else {
+                walletWidget.style.display = "none";
+                container.innerHTML = `
+                    <button class="btn btn-sm text-white px-4 py-2 fw-bold" data-bs-toggle="modal" data-bs-target="#modalLoginJastef" style="background: var(--primary-gradient); border:none; border-radius:30px;">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Masuk
+                    </button>
+                `;
+            }
+        }
+
+        function aksiLoginSimulasi() {
+            let user = document.getElementById('loginUsername').value.trim().toLowerCase();
+            
+            if (user === "hani" || user === "24220175") {
+                statusUserSudahLogin = true;
+                
+                let modalLoginEl = document.getElementById('modalLoginJastef');
+                let modalLogin = bootstrap.Modal.getInstance(modalLoginEl);
+                if (modalLogin) modalLogin.hide();
+
+                document.getElementById('loginUsername').value = "";
+                document.getElementById('loginPassword').value = "";
+
+                cekStatusLoginUserRenderNavbar();
+                alert("Selamat Datang Kembali Hani! Login Berhasil.");
+            } else {
+                alert("Gagal: Username atau NIM Salah! Gunakan kata kunci 'hani' atau NIM '24220175'.");
+            }
+        }
+
+        function aksiLogoutSimulasi() {
+            statusUserSudahLogin = false;
+            
+            let modalProfilEl = document.getElementById('modalProfilUser');
+            let modalProfil = bootstrap.Modal.getInstance(modalProfilEl);
+            if (modalProfil) modalProfil.hide();
+
+            cekStatusLoginUserRenderNavbar();
+            alert("Anda telah berhasil keluar dari akun JASTEF.");
+        }
+
+        function updateTampilanSaldoWidget() {
+            document.getElementById('txtSaldoUtamaDashboard').innerText = "Rp " + saldoDompetUtama.toLocaleString('id-ID');
+        }
+
+        function prosesTopUpSaldoJastef() {
+            let nominalInput = document.getElementById('inputNominalIsiSaldo').value.trim();
+            let metodeInput = document.getElementById('inputMetodeIsiSaldo').value;
+
+            if (nominalInput === "" || isNaN(nominalInput)) { alert("Masukkan nominal yang valid!"); return; }
+            let nominalMurni = parseInt(nominalInput);
+            if (nominalMurni < 10000) { alert("Minimal top-up Rp 10.000!"); return; }
+
+            saldoDompetUtama += nominalMurni;
+            updateTampilanSaldoWidget();
+
+            let modalTopUpEl = document.getElementById('modalIsiSaldoJastef');
+            let modalTopUp = bootstrap.Modal.getInstance(modalTopUpEl);
+            if (modalTopUp) modalTopUp.hide();
+            document.getElementById('inputNominalIsiSaldo').value = "";
+
+            prosesTransaksiBerhasil("Isi Saldo JASTEF", "Rp " + nominalMurni.toLocaleString('id-ID'), `Metode: ${metodeInput}`);
+        }
+
+        function renderGridDiamondGame() {
+            let gamePlatform = document.getElementById('selectJenisGamePlatform').value;
+            let container = document.getElementById('containerGridDiamondVoucher');
+            if (!container) return;
+            container.innerHTML = "";
+
+            katalogKoleksiGame[gamePlatform].forEach((item, index) => {
+                let col = document.createElement('div');
+                col.className = "col-6 col-sm-4";
+                col.innerHTML = `
+                    <div class="game-item-card" id="dmCard-${index}" onclick="pilihItemDiamondKasir('${gamePlatform}', '${item.diamond} (${item.harga})', ${item.angkaMurni}, ${index})">
+                        <div class="dm-amount"><i class="bi bi-gem text-info me-1"></i> ${item.diamond}</div>
+                        <div class="dm-price">${item.harga}</div>
+                    </div>
+                `;
+                container.appendChild(col);
+            });
+            document.getElementById('hiddenProdukGameTerpilih').value = "";
+            document.getElementById('hiddenHargaGameMurni').value = "";
+        }
+
+        function pilihItemDiamondKasir(namaGame, detailProduk, hargaAsli, indexTerpilih) {
+            let allCards = document.querySelectorAll('.game-item-card');
+            allCards.forEach(card => card.classList.remove('selected'));
+            document.getElementById(`dmCard-${indexTerpilih}`).classList.add('selected');
+
+            document.getElementById('hiddenProdukGameTerpilih').value = `${namaGame} - ${detailProduk}`;
+            document.getElementById('hiddenHargaGameMurni').value = hargaAsli;
+        }
+
+        function validasirimGame() {
+            if (!statusUserSudahLogin) { alert("Gagal: Anda harus melakukan Login / Masuk Akun terlebih dahulu untuk bertransaksi!"); return; }
+
+            let gameId = document.getElementById('inputIDGame').value.trim();
+            let gameProd = document.getElementById('hiddenProdukGameTerpilih').value;
+            let hargaMurni = parseInt(document.getElementById('hiddenHargaGameMurni').value);
+            
+            if(gameId === "" || gameProd === "") { alert("Lengkapi ID dan Pilih Nominal Diamond!"); return; }
+
+            if (saldoDompetUtama < hargaMurni) {
+                alert(`Gagal: Saldo tidak cukup! Harga Rp ${hargaMurni.toLocaleString('id-ID')}, Saldo Anda Rp ${saldoDompetUtama.toLocaleString('id-ID')}.`);
+                return;
+            }
+
+            saldoDompetUtama -= hargaMurni;
+            updateTampilanSaldoWidget();
+
+            let modalGameEl = document.getElementById('modalTopUpGame');
+            let modalGame = bootstrap.Modal.getInstance(modalGameEl);
+            if (modalGame) modalGame.hide();
+            document.getElementById('inputIDGame').value = "";
+            renderGridDiamondGame();
+
+            prosesTransaksiBerhasil('Top-Up Game Instan', gameProd, `ID Game: ${gameId}`);
+        }
+
+        function updatePilihanPaketData() {
+            let operator = document.getElementById('inputOperatorData').value;
+            let selectPaket = document.getElementById('inputPaketDataLengkap');
+            if (!selectPaket) return;
+            selectPaket.innerHTML = "";
+            daftarPaketData[operator].forEach(paket => {
+                let opsi = document.createElement('option');
+                opsi.value = `${paket.harga}|${operator} - ${paket.value}`;
+                opsi.text = paket.teks;
+                selectPaket.appendChild(opsi);
+            });
+        }
+
+        function cekTagihanPelanggan() {
+            let idPel = document.getElementById('inputIDTagihan').value.trim();
+            let jenis = document.getElementById('inputJenisTagihan').value;
+            if (idPel === "") { alert("Isi ID Pelanggan terlebih dahulu!"); return; }
+
+            let indexAcak = Math.floor((idPel % 5)); 
+            let namaHasil = simulasiNamaTagihan[indexAcak] || "Pelanggan Jastef Store";
+            let nominalTagihan = simulasiHargaTagihan[jenis];
+            let totalBayar = nominalTagihan + 2500; 
+
+            document.getElementById('txtNamaPelanggan').innerText = namaHasil;
+            document.getElementById('txtJumlahTagihan').innerText = "Rp " + nominalTagihan.toLocaleString('id-ID');
+            document.getElementById('boxDetailTagihan').classList.remove('d-none');
+
+            document.getElementById('tagihanNominalHidden').value = "Rp " + totalBayar.toLocaleString('id-ID') + " (Inc. Admin)";
+            document.getElementById('tagihanHargaMurniHidden').value = totalBayar;
+            document.getElementById('tagihanNamaHidden').value = namaHasil;
+        }
+
+        function resetCekTagihan() {
+            let box = document.getElementById('boxDetailTagihan');
+            if (box) box.classList.add('d-none');
+            document.getElementById('tagihanNominalHidden').value = "";
+            document.getElementById('tagihanHargaMurniHidden').value = "";
+            document.getElementById('tagihanNamaHidden').value = "";
+        }
+
+        function validasidanKirim(layanan, idInputTarget, idNominalTarget) {
+            if (!statusUserSudahLogin) { alert("Gagal: Anda harus melakukan Login / Masuk Akun terlebih dahulu untuk bertransaksi!"); return; }
+
+            let targetNo = document.getElementById(idInputTarget).value.trim();
+            let targetProduk = document.getElementById(idNominalTarget).value;
+            let biayaDipotong = 0;
+
+            if (targetNo === "") { alert("Silakan isi data tujuan!"); return; }
+
+            if (layanan === 'Bank') {
+                biayaDipotong = parseInt(targetProduk);
+                if (isNaN(biayaDipotong) || biayaDipotong < 20000) { alert("Nominal transfer bank minimal Rp 20.000!"); return; }
+                if (saldoDompetUtama < biayaDipotong) { alert("Transaksi Gagal: Saldo Anda Tidak Cukup!"); return; }
+                saldoDompetUtama -= biayaDipotong;
+
+                let namaBank = document.getElementById('inputNamaBank').value;
+                targetProduk = 'Rp ' + biayaDipotong.toLocaleString('id-ID');
+                targetNo = `${namaBank} (${targetNo})`;
+            }
+
+            if (layanan === 'E-Wallet') {
+                biayaDipotong = parseInt(targetProduk);
+                if (isNaN(biayaDipotong) || biayaDipotong < 10000) { alert("Nominal e-wallet minimal Rp 10.000!"); return; }
+                if (saldoDompetUtama < biayaDipotong) { alert("Transaksi Gagal: Saldo Anda Tidak Cukup!"); return; }
+                saldoDompetUtama -= biayaDipotong;
+
+                let formatRupiah = 'Rp ' + biayaDipotong.toLocaleString('id-ID');
+                let jenisWallet = document.getElementById('inputJenisWallet').value;
+                targetProduk = `${jenisWallet} - ${formatRupiah}`;
+            }
+
+            if (layanan === 'Pulsa/Data') {
+                if (targetProduk === 'Pulsa Regular') {
+                    layanan = 'Pulsa Reguler';
+                    let selectMurni = document.getElementById('inputNominalPulsaReguler').value;
+                    biayaDipotong = parseInt(selectMurni);
+                    if (saldoDompetUtama < biayaDipotong) { alert("Transaksi Gagal: Saldo Anda Tidak Cukup!"); return; }
+                    saldoDompetUtama -= biayaDipotong;
+
+                    let e = document.getElementById("inputNominalPulsaReguler");
+                    targetProduk = e.options[e.selectedIndex].text;
+                } else {
+                    layanan = 'Paket Data Internet';
+                    let selectMurni = document.getElementById('inputPaketDataLengkap').value;
+                    let dataSplit = selectMurni.split('|');
+                    biayaDipotong = parseInt(dataSplit[0]);
+                    if (saldoDompetUtama < biayaDipotong) { alert("Transaksi Gagal: Saldo Anda Tidak Cukup!"); return; }
+                    saldoDompetUtama -= biayaDipotong;
+
+                    targetProduk = dataSplit[1];
+                }
+            }
+
+            if (layanan === 'Tagihan') {
+                let nominalHidden = document.getElementById('tagihanNominalHidden').value;
+                let hargaMurni = parseInt(document.getElementById('tagihanHargaMurniHidden').value);
+                let namaHidden = document.getElementById('tagihanNamaHidden').value;
+
+                if (nominalHidden === "") { alert("Silakan klik 'Cek Tagihan' terlebih dahulu!"); return; }
+                if (saldoDompetUtama < hargaMurni) { alert("Transaksi Gagal: Saldo Anda Tidak Cukup!"); return; }
+                saldoDompetUtama -= hargaMurni;
+
+                layanan = `Tagihan ${targetProduk}`;
+                targetNo = `${targetNo} an. ${namaHidden}`;
+                targetProduk = nominalHidden;
+            }
+
+            updateTampilanSaldoWidget();
+
+            let modalAktif = document.querySelector('.modal.show');
+            if (modalAktif) {
+                let instance = bootstrap.Modal.getInstance(modalAktif) || new bootstrap.Modal(modalAktif);
+                instance.hide();
+            }
+
+            document.getElementById(idInputTarget).value = "";
+            resetCekTagihan();
+            prosesTransaksiBerhasil(layanan, targetProduk, targetNo);
+        }
+
+        function prosesTransaksiBerhasil(layanan, produk, tujuan) {
+            let waktuSekarang = new Date();
+            let tanggalStr = waktuSekarang.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            let jamStr = waktuSekarang.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+            let noReferensi = 'JS-' + Math.floor(100000 + Math.random() * 900000);
+
+            document.getElementById('tampilanStruk').innerHTML = `
+                ========================================<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>JASTEF: Mini_House</b><br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Kisaran, Asahan, Sumut<br>
+                ========================================<br>
+                <b>No. Ref&nbsp;&nbsp;:</b> ${noReferensi}<br>
+                <b>Waktu&nbsp;&nbsp;&nbsp;&nbsp;:</b> ${tanggalStr}, ${jamStr}<br>
+                <b>Layanan&nbsp;:</b> ${layanan}<br>
+                <b>Tujuan&nbsp;&nbsp;:</b> ${tujuan}<br>
+                <b>Produk&nbsp;&nbsp;:</b> ${produk}<br>
+                ----------------------------------------<br>
+                <b>STATUS&nbsp;&nbsp;: <span class="text-success">SUKSES / BERHASIL</span></b><br>
+                ========================================<br>
+                <center>Terima Kasih Atas Kepercayaan Anda!</center>
+            `;
+            setTimeout(() => { new bootstrap.Modal(document.getElementById('modalSuksesPromo')).show(); }, 400);
+        }
+
+        function kirimPesan() {
+            let input = document.getElementById('inputPesanChat');
+            let container = document.getElementById('chatContainer');
+            if (input.value.trim() !== "") {
+                container.innerHTML += `<div class="p-2 text-white rounded-3 mb-2 ms-auto text-end" style="max-width: 80%; font-size:12px; background: var(--primary-gradient);">${input.value}</div>`;
+                container.scrollTop = container.scrollHeight;
+                input.value = "";
+                setTimeout(() => {
+                    container.innerHTML += `<div class="p-2 rounded-3 mb-2 border text-light shadow-sm" style="max-width: 80%; font-size:12px; background: var(--bg-dark-card); border-color: rgba(255,255,255,0.05) !important;">Maaf Hani, koneksi jaringan asisten sedang sibuk!</div>`;
+                    container.scrollTop = container.scrollHeight;
+                }, 800);
+            }
+        }
+    </script>
+</body>
+</html>
